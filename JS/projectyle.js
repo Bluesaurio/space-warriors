@@ -7,7 +7,7 @@ class Projectyle {
     // dimensiones y variables
 
     this.h = 20;
-    this.w = 40;
+    this.w = 30;
 
     this.x = naveX + 70;
 

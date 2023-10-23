@@ -11,8 +11,8 @@ class Game {
   collisionCheckPlayerEnemy = () => {
     this.enemyArr.forEach((eachEnemy) => {
       if (
-        eachEnemy.x + 40 < this.player.x + 40 + this.player.w &&
-        eachEnemy.x + 40 + eachEnemy.w > this.player.x + 40 &&
+        eachEnemy.x < this.player.x + this.player.w - 35 &&
+        eachEnemy.x + eachEnemy.w > this.player.x &&
         eachEnemy.y < this.player.y + this.player.h &&
         eachEnemy.y + eachEnemy.h > this.player.y
       ) {
@@ -20,6 +20,31 @@ class Game {
       }
     });
   };
+
+  collisionCheckEnemyShot = () => {
+    if (this.enemyArr.length !== 0 && this.projectyleArr.length !== 0) {
+      for (let i = 0; i < this.enemyArr.length; i++) {
+        for (let j = 0; j < this.projectyleArr.length; j++) {
+          if (
+            this.enemyArr[i].x <
+              this.projectyleArr[j].x + this.projectyleArr[j].w &&
+            this.enemyArr[i].x + this.enemyArr[i].w > this.projectyleArr[j].x &&
+            this.enemyArr[i].y <
+              this.projectyleArr[j].y + this.projectyleArr[j].h &&
+            this.enemyArr[i].y + this.enemyArr[i].h + 10 >
+              this.projectyleArr[j].y
+          ) {
+            console.log("chocando");
+            this.enemyArr[i].node.remove();
+            this.projectyleArr[j].node.remove();
+            this.projectyleArr.splice(j, 1);
+            this.enemyArr.splice(i, 1);
+          }
+        }
+      }
+    }
+  };
+
   playerShooting = () => {
     let newProjectyle = new Projectyle(this.player.x, this.player.y);
     this.projectyleArr.push(newProjectyle);
@@ -63,6 +88,7 @@ class Game {
     });
 
     this.enemyDisappear();
+    this.collisionCheckEnemyShot();
     this.collisionCheckPlayerEnemy();
     this.timer++;
     if (this.isGameOn === true) {

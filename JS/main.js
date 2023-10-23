@@ -19,11 +19,7 @@ const startGame = () => {
 const resetGame = () => {
   gameOverScreenNode.style.display = "none";
   splashScreenNode.style.display = "flex";
-  delete gameObject;
-  delete gameObject.player.node.style.top;
-  delete gameObject.player.node.style.left;
-  delete gameObject.player.node.style.width;
-  delete gameObject.player.node.style.height; // probar más cosas
+  gameObject.node.reset();
 };
 // EVENT LISTENERS
 
