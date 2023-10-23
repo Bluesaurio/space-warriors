@@ -6,6 +6,7 @@ body {
 
 #start-btn {
     background-color: blueviolet;
+    position: absolute;
     color: white;
     padding: 20px 40px 20px 40px;
     margin-top: 40px;
@@ -23,25 +24,10 @@ body {
 #game-over-btn {
     background-color: blueviolet;
     color: white;
+    position: absolute;
     padding: 20px 40px 20px 40px;
     margin-top: 40px;
     border-radius: 10px;
-}
-
-#splash-screen {
-    width: 800px;
-    height: 600px;
-    background-color: gray;
-    
-    
-}
-
-#game-over-screen {
-    width: 800px;
-    height: 600px;
-    background-color: gray;
-    display: flex;
-    
 }
 
 .container {
@@ -52,8 +38,8 @@ body {
     margin: 40px;
 }
 
-#game-box {
-    background-image: url(./extra/images/background-starfield.png);
+.box {
+
     background-size: cover;
     background-position: center;
     background-color: gray;
@@ -62,6 +48,11 @@ body {
     overflow: hidden;
     position: relative;
     user-select: none;
+}
+
+#game-box {
+
+    background-image: url(./extra/images/background-starfield.png);
 }
 
 #game-screen, #game-over-screen {

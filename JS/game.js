@@ -74,6 +74,7 @@ class Game {
 
   gameOver = () => {
     this.isGameOn = false;
+
     gameScreenNode.style.display = "none";
     gameOverScreenNode.style.display = "flex";
   };
