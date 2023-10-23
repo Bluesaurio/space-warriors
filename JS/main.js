@@ -19,7 +19,11 @@ const startGame = () => {
 const resetGame = () => {
   gameOverScreenNode.style.display = "none";
   splashScreenNode.style.display = "flex";
-  delete Game;
+  delete gameObject;
+  delete gameObject.player.node.style.top;
+  delete gameObject.player.node.style.left;
+  delete gameObject.player.node.style.width;
+  delete gameObject.player.node.style.height; // probar más cosas
 };
 // EVENT LISTENERS
 
@@ -30,33 +34,32 @@ startBtnNode.addEventListener("click", startGame);
 gameOverButtonNode.addEventListener("click", resetGame);
 
 // player shot
-document.addEventListener("keydown", () => {
+document.addEventListener("keydown", (event) => {
   if (event.code === "KeyZ") {
-    projectyleObject.projectyle.isPlayerShooting = true;
-    gameObject.game.isPlayerShooting = true;
+    gameObject.playerShooting();
   }
 });
 
 // movimientos del player
-document.addEventListener("keydown", () => {
+document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowUp") {
     gameObject.player.playerMovingUp = true;
     gameObject.player.playerMovementUp();
   }
 });
-document.addEventListener("keydown", () => {
+document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowDown") {
     gameObject.player.playerMovingDown = true;
     gameObject.player.playerMovementDown();
   }
 });
-document.addEventListener("keydown", () => {
+document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowLeft") {
     gameObject.player.playerMovingLeft = true;
     gameObject.player.playerMovementLeft();
   }
 });
-document.addEventListener("keydown", () => {
+document.addEventListener("keydown", (event) => {
   gameObject.player.playerMovingRight = true;
   if (event.code === "ArrowRight") {
     gameObject.player.playerMovementRight();

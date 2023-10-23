@@ -1,20 +1,17 @@
 class Projectyle {
-  constructor() {
+  constructor(naveX, naveY) {
     // nodos
     this.node = document.createElement("img");
     this.node.src = "./extra/images/shot.png";
     gameBoxNode.append(this.node);
     // dimensiones y variables
 
-    isPlayerShooting = false;
-    isProjectyleAlly = true;
+    this.h = 20;
+    this.w = 40;
 
-    this.h = 4;
-    this.w = 6;
-    if (isProjectyleAlly === true) {
-      this.x = player.x + 105;
-    }
-    this.y = player.y;
+    this.x = naveX + 70;
+
+    this.y = naveY + 28;
 
     // valores DOM
 
@@ -25,15 +22,12 @@ class Projectyle {
     this.node.style.top = `${this.y}px`;
 
     // velocidad del disparo
-    if (isProjectyleAlly === true) {
-      this.speed = 100;
-    }
+
+    this.speed = 30;
   }
 
-  playerShooting = () => {
-    if (isPlayerShooting === true) {
-      this.x -= this.speed;
-      this.node.style.left = `${this.x}px`;
-    }
+  movement = () => {
+    this.x += this.speed;
+    this.node.style.left = `${this.x}px`;
   };
 }

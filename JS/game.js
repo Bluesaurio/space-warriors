@@ -3,16 +3,16 @@ class Game {
     this.timer = 0;
     this.isGameOn = true;
     this.player = new Player();
+
     this.enemyArr = [];
     this.projectyleArr = [];
-    this.isPlayerShooting = false;
   }
 
   collisionCheckPlayerEnemy = () => {
     this.enemyArr.forEach((eachEnemy) => {
       if (
-        eachEnemy.x - 40 < this.player.x - 40 + this.player.w &&
-        eachEnemy.x - 40 + eachEnemy.w > this.player.x - 40 &&
+        eachEnemy.x + 40 < this.player.x + 40 + this.player.w &&
+        eachEnemy.x + 40 + eachEnemy.w > this.player.x + 40 &&
         eachEnemy.y < this.player.y + this.player.h &&
         eachEnemy.y + eachEnemy.h > this.player.y
       ) {
@@ -21,10 +21,10 @@ class Game {
     });
   };
   playerShooting = () => {
-    if (this.isPlayerShooting === true) {
-      let newProjectyle = new Projectyle();
-      this.projectyleArr.push(newProjectyle);
-    }
+    let newProjectyle = new Projectyle(this.player.x, this.player.y);
+    this.projectyleArr.push(newProjectyle);
+
+    console.log("disparo", this.player.y);
   };
   enemySpawnFirstWave = () => {
     if (this.timer % 45 === 0 && this.timer > 60 && this.timer < 360) {
@@ -34,9 +34,16 @@ class Game {
   };
 
   enemyDisappear = () => {
-    if (this.enemyArr[0].x < -100) {
+    if (this.enemyArr.length !== 0 && this.enemyArr[0].x < -100) {
       this.enemyArr[0].node.remove();
       this.enemyArr.shift();
+    }
+  };
+
+  shotDisappear = () => {
+    if (this.projectyleArr.length !== 0 && this.projectyleArr[0].x > 1100) {
+      this.projectyleArr[0].node.remove();
+      this.projectyleArr.shift();
     }
   };
 
@@ -51,8 +58,11 @@ class Game {
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });
+    this.projectyleArr.forEach((eachProjectyle) => {
+      eachProjectyle.movement();
+    });
 
-    //this.enemyDisappear();  algo da problemas con esta funcion
+    this.enemyDisappear();
     this.collisionCheckPlayerEnemy();
     this.timer++;
     if (this.isGameOn === true) {
