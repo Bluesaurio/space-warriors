@@ -4,13 +4,15 @@ class Game {
     this.isGameOn = true;
     this.player = new Player();
     this.enemyArr = [];
+    this.projectyleArr = [];
+    this.isPlayerShooting = false;
   }
 
   collisionCheckPlayerEnemy = () => {
     this.enemyArr.forEach((eachEnemy) => {
       if (
-        eachEnemy.x < this.player.x + this.player.w &&
-        eachEnemy.x + eachEnemy.w > this.player.x &&
+        eachEnemy.x - 40 < this.player.x - 40 + this.player.w &&
+        eachEnemy.x - 40 + eachEnemy.w > this.player.x - 40 &&
         eachEnemy.y < this.player.y + this.player.h &&
         eachEnemy.y + eachEnemy.h > this.player.y
       ) {
@@ -18,7 +20,12 @@ class Game {
       }
     });
   };
-
+  playerShooting = () => {
+    if (this.isPlayerShooting === true) {
+      let newProjectyle = new Projectyle();
+      this.projectyleArr.push(newProjectyle);
+    }
+  };
   enemySpawnFirstWave = () => {
     if (this.timer % 45 === 0 && this.timer > 60 && this.timer < 360) {
       let newEnemyWave1 = new Enemy(100);
