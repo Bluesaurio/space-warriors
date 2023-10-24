@@ -26,8 +26,8 @@ const playShotSound = () => {
 const startGame = () => {
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
-  gameBoxSoundtrackNode.play();
   gameObject = new Game();
+  gameBoxSoundtrackNode.play();
   gameObject.gameLoop();
   gameObject.score = 0;
 };

@@ -49,7 +49,7 @@ class Game {
   };
 
   playerShooting = () => {
-    if (this.projectyleArr.length < 2) {
+    if (this.projectyleArr.length < 2 && this.isGameOn === true) {
       let newProjectyle = new Projectyle(this.player.x, this.player.y);
       this.projectyleArr.push(newProjectyle);
       playShotSound();
@@ -58,33 +58,51 @@ class Game {
     //console.log("disparo", this.player.y);
   };
   enemySpawnFirstWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 60 && this.timer < 360) {
-      let newEnemyWave1 = new Enemy(100, 850, "right");
-      this.enemyArr.push(newEnemyWave1);
+    if (this.timer % 30 === 0 && this.timer > 60 && this.timer < 240) {
+      let newEnemyWave = new Enemy(100, 850, "right");
+      this.enemyArr.push(newEnemyWave);
     }
   };
   enemySpawnSecondWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 240 && this.timer < 540) {
-      let newEnemyWave2 = new Enemy(450, 850, "right");
-      this.enemyArr.push(newEnemyWave2);
+    if (this.timer % 30 === 0 && this.timer > 300 && this.timer < 480) {
+      let newEnemyWave = new Enemy(400, 850, "right");
+      this.enemyArr.push(newEnemyWave);
     }
   };
   enemySpawnThirdWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
-      let newEnemyWave3 = new Enemy(350, 850, "right");
-      this.enemyArr.push(newEnemyWave3);
+    if (this.timer % 30 === 0 && this.timer > 540 && this.timer < 720) {
+      let newEnemyWave = new Enemy(250, 850, "right");
+      this.enemyArr.push(newEnemyWave);
     }
   };
   enemySpawnFourthWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 240 && this.timer < 540) {
-      let newEnemyWave2 = new Enemy(200, -50, "left");
-      this.enemyArr.push(newEnemyWave2);
+    if (this.timer % 30 === 0 && this.timer > 540 && this.timer < 720) {
+      let newEnemyWave = new Enemy(130, -50, "left");
+      this.enemyArr.push(newEnemyWave);
     }
   };
   enemySpawnFifthWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
-      let newEnemyWave2 = new Enemy(450, -50, "left");
-      this.enemyArr.push(newEnemyWave2);
+    if (this.timer % 30 === 0 && this.timer > 540 && this.timer < 720) {
+      let newEnemyWave = new Enemy(370, -50, "left");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnSixthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 840 && this.timer < 1020) {
+      let newEnemyWave = new Enemy(-50, 150, "top");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnSeventhWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 900 && this.timer < 1080) {
+      let newEnemyWave = new Enemy(650, 350, "bottom");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnEighthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 960 && this.timer < 1140) {
+      let newEnemyWave = new Enemy(-50, 500, "top");
+      this.enemyArr.push(newEnemyWave);
     }
   };
 
@@ -107,7 +125,11 @@ class Game {
     for (let i = 0; i < this.enemyArr.length; i++) {
       this.enemyArr[i].node.remove();
     }
+    for (let j = 0; j < this.projectyleArr.length; j++) {
+      this.projectyleArr[j].node.remove();
+    }
     this.enemyArr = [];
+    this.projectyleArr = [];
     this.player.node.remove();
     gameScreenNode.style.display = "none";
     gameOverScreenNode.style.display = "flex";
@@ -119,6 +141,9 @@ class Game {
     this.enemySpawnThirdWave();
     this.enemySpawnFourthWave();
     this.enemySpawnFifthWave();
+    this.enemySpawnSixthWave();
+    this.enemySpawnSeventhWave();
+    this.enemySpawnEighthWave();
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });

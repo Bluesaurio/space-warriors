@@ -24,7 +24,7 @@ class Enemy {
 
     // velocidad
 
-    this.speed = 2.3;
+    this.speed = 4;
   }
 
   // movimiento
