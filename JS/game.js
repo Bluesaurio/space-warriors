@@ -74,7 +74,11 @@ class Game {
 
   gameOver = () => {
     this.isGameOn = false;
-
+    for (let i = 0; i < this.enemyArr.length; i++) {
+      this.enemyArr[i].node.remove();
+    }
+    this.enemyArr = [];
+    this.player.node.remove();
     gameScreenNode.style.display = "none";
     gameOverScreenNode.style.display = "flex";
   };

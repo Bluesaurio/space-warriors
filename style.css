@@ -8,9 +8,10 @@ body {
     background-color: blueviolet;
     position: absolute;
     color: white;
-    padding: 20px 40px 20px 40px;
+    padding: 15px 50px 15px 50px;
     margin-top: 40px;
     border-radius: 10px;
+    top: 270px;
 }
 
 #pause-stance {
@@ -25,7 +26,7 @@ body {
     background-color: blueviolet;
     color: white;
     position: absolute;
-    padding: 20px 40px 20px 40px;
+    padding: 15px 50px 15px 50px;
     margin-top: 40px;
     border-radius: 10px;
 }
@@ -42,7 +43,7 @@ body {
 
     background-size: cover;
     background-position: center;
-    background-color: gray;
+    background-color: black;
     width: 800px;
     height: 600px;
     overflow: hidden;
@@ -51,8 +52,15 @@ body {
 }
 
 #game-box {
-
     background-image: url(./extra/images/background-starfield.png);
+}
+
+#splash-box {
+    background-image: url(./extra/images/splash-bg-img.png);
+}
+
+#game-over-box {
+    background-image: url(./extra/images/game-over-bg-img.png);
 }
 
 #game-screen, #game-over-screen {

@@ -5,6 +5,7 @@ let gameScreenNode = document.querySelector("#game-screen");
 let gameBoxNode = document.querySelector("#game-box");
 let gameOverScreenNode = document.querySelector("#game-over-screen");
 let gameOverButtonNode = document.querySelector("#game-over-btn");
+let gameBoxSoundtrackNode = document.querySelector("#VicViper");
 let gameObject;
 let projectyleObject;
 // STATE MANAGEMENT FUNCTIONS
@@ -12,6 +13,7 @@ let projectyleObject;
 const startGame = () => {
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
+  gameBoxSoundtrackNode.play();
   gameObject = new Game();
   gameObject.gameLoop();
 };
@@ -19,7 +21,6 @@ const startGame = () => {
 const resetGame = () => {
   gameOverScreenNode.style.display = "none";
   splashScreenNode.style.display = "flex";
-  gameObject.node.reset();
 };
 // EVENT LISTENERS
 
