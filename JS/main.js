@@ -6,10 +6,23 @@ let gameBoxNode = document.querySelector("#game-box");
 let gameOverScreenNode = document.querySelector("#game-over-screen");
 let gameOverButtonNode = document.querySelector("#game-over-btn");
 let gameBoxSoundtrackNode = document.querySelector("#vicViper");
+let shotSoundNode = document.createElement("audio");
+shotSoundNode.volume = 0.7;
+shotSoundNode.src = "./extra/sounds/shoot.wav";
+let enemyDeadSound = document.createElement("audio");
+enemyDeadSound.volume = 0.6;
+enemyDeadSound.src = "/extra/sounds/hurt.ogg";
 let gameObject;
 let projectyleObject;
 // STATE MANAGEMENT FUNCTIONS
-
+const enemyDyingSound = () => {
+  enemyDeadSound.currentTime = 0;
+  enemyDeadSound.play();
+};
+const playShotSound = () => {
+  shotSoundNode.currentTime = 0;
+  shotSoundNode.play();
+};
 const startGame = () => {
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";

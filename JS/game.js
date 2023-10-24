@@ -34,15 +34,17 @@ class Game {
             this.enemyArr[i].y + this.enemyArr[i].h + 10 >
               this.projectyleArr[j].y
           ) {
-            console.log("chocando");
+            //console.log("chocando");
             this.enemyArr[i].node.remove();
             this.projectyleArr[j].node.remove();
             this.projectyleArr.splice(j, 1);
             this.enemyArr.splice(i, 1);
+            enemyDyingSound();
           }
         }
       }
     }
+
     this.score + 100;
   };
 
@@ -50,37 +52,38 @@ class Game {
     if (this.projectyleArr.length < 2) {
       let newProjectyle = new Projectyle(this.player.x, this.player.y);
       this.projectyleArr.push(newProjectyle);
+      playShotSound();
     }
 
     //console.log("disparo", this.player.y);
   };
   enemySpawnFirstWave = () => {
     if (this.timer % 45 === 0 && this.timer > 60 && this.timer < 360) {
-      let newEnemyWave1 = new Enemy(100, 850);
+      let newEnemyWave1 = new Enemy(100, 850, "right");
       this.enemyArr.push(newEnemyWave1);
     }
   };
   enemySpawnSecondWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
-      let newEnemyWave2 = new Enemy(400, 850, "right");
+    if (this.timer % 45 === 0 && this.timer > 240 && this.timer < 540) {
+      let newEnemyWave2 = new Enemy(450, 850, "right");
       this.enemyArr.push(newEnemyWave2);
     }
   };
   enemySpawnThirdWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 800 && this.timer < 1100) {
-      let newEnemyWave3 = new Enemy(250, 850, "right");
+    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
+      let newEnemyWave3 = new Enemy(350, 850, "right");
       this.enemyArr.push(newEnemyWave3);
     }
   };
-  enemySpawnSecondWave = () => {
-    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
-      let newEnemyWave2 = new Enemy(400, 850, "right");
+  enemySpawnFourthWave = () => {
+    if (this.timer % 45 === 0 && this.timer > 240 && this.timer < 540) {
+      let newEnemyWave2 = new Enemy(200, -50, "left");
       this.enemyArr.push(newEnemyWave2);
     }
   };
-  enemySpawnSecondWave = () => {
+  enemySpawnFifthWave = () => {
     if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
-      let newEnemyWave2 = new Enemy(400, 850);
+      let newEnemyWave2 = new Enemy(450, -50, "left");
       this.enemyArr.push(newEnemyWave2);
     }
   };
@@ -114,6 +117,8 @@ class Game {
     this.enemySpawnFirstWave();
     this.enemySpawnSecondWave();
     this.enemySpawnThirdWave();
+    this.enemySpawnFourthWave();
+    this.enemySpawnFifthWave();
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });
@@ -127,7 +132,7 @@ class Game {
     this.timer++;
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
-      console.log(this.projectyleArr);
+      //console.log(score);
     }
   };
 }
