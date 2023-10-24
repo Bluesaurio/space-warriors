@@ -41,7 +41,7 @@ body {
 
 .box {
 
-    background-size: cover;
+    
     background-position: center;
     background-color: black;
     width: 800px;
@@ -53,13 +53,31 @@ body {
 
 #game-box {
     background-image: url(./extra/images/background-starfield.png);
+    background-repeat: repeat-x;
+    animation-iteration-count: infinite;
+    animation-duration: 12s;
+    animation-timing-function: linear;
+    animation-name: backgroundloop;
+    display: block;
+
+}
+
+@keyframes backgroundloop {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -800px 0;
+    }
 }
 
 #splash-box {
+    background-size: cover;
     background-image: url(./extra/images/splash-bg-img.png);
 }
 
 #game-over-box {
+    background-size: cover;
     background-image: url(./extra/images/game-over-bg-img.png);
 }
 
