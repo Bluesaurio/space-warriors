@@ -5,7 +5,7 @@ let gameScreenNode = document.querySelector("#game-screen");
 let gameBoxNode = document.querySelector("#game-box");
 let gameOverScreenNode = document.querySelector("#game-over-screen");
 let gameOverButtonNode = document.querySelector("#game-over-btn");
-let gameBoxSoundtrackNode = document.querySelector("#VicViper");
+let gameBoxSoundtrackNode = document.querySelector("#vicViper");
 let gameObject;
 let projectyleObject;
 // STATE MANAGEMENT FUNCTIONS
@@ -16,8 +16,9 @@ const startGame = () => {
   gameBoxSoundtrackNode.play();
   gameObject = new Game();
   gameObject.gameLoop();
+  gameObject.score = 0;
 };
-// problemas con el reset, no borra la partida anterior (cosa del DOM?)
+
 const resetGame = () => {
   gameOverScreenNode.style.display = "none";
   splashScreenNode.style.display = "flex";

@@ -1,5 +1,5 @@
 class Enemy {
-  constructor(yPosition) {
+  constructor(yPosition, xPosition, direction) {
     // añado type por si hago más de un tipo de enemigo en el bonus
 
     // nodos
@@ -12,8 +12,9 @@ class Enemy {
 
     this.h = 30;
     this.w = 60;
-    this.x = 850;
+    this.x = xPosition;
     this.y = yPosition;
+    this.direction = direction;
 
     this.node.style.width = `${this.w}px`;
     this.node.style.heigth = `${this.h}px`;
@@ -23,13 +24,26 @@ class Enemy {
 
     // velocidad
 
-    this.speed = 1.4;
+    this.speed = 2.4;
   }
 
   // movimiento
 
   autoMovement = () => {
-    this.x -= this.speed;
-    this.node.style.left = `${this.x}px`;
+    if (this.direction === "right") {
+      this.x -= this.speed;
+      this.node.style.left = `${this.x}px`;
+    } else if (this.direction === "left") {
+      this.x += this.speed;
+      this.node.style.left = `${this.x}px`;
+    }
+    if (this.direction === "top") {
+      this.y += this.speed;
+      this.node.style.top = `${this.y}px`;
+    }
+    if (this.direction === "bottom") {
+      this.y -= this.speed;
+      this.node.style.top = `${this.y}px`;
+    }
   };
 }

@@ -3,7 +3,7 @@ class Game {
     this.timer = 0;
     this.isGameOn = true;
     this.player = new Player();
-
+    this.score = 0;
     this.enemyArr = [];
     this.projectyleArr = [];
   }
@@ -43,18 +43,45 @@ class Game {
         }
       }
     }
+    this.score + 100;
   };
 
   playerShooting = () => {
-    let newProjectyle = new Projectyle(this.player.x, this.player.y);
-    this.projectyleArr.push(newProjectyle);
+    if (this.projectyleArr.length < 2) {
+      let newProjectyle = new Projectyle(this.player.x, this.player.y);
+      this.projectyleArr.push(newProjectyle);
+    }
 
-    console.log("disparo", this.player.y);
+    //console.log("disparo", this.player.y);
   };
   enemySpawnFirstWave = () => {
     if (this.timer % 45 === 0 && this.timer > 60 && this.timer < 360) {
-      let newEnemyWave1 = new Enemy(100);
+      let newEnemyWave1 = new Enemy(100, 850);
       this.enemyArr.push(newEnemyWave1);
+    }
+  };
+  enemySpawnSecondWave = () => {
+    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
+      let newEnemyWave2 = new Enemy(400, 850, "right");
+      this.enemyArr.push(newEnemyWave2);
+    }
+  };
+  enemySpawnThirdWave = () => {
+    if (this.timer % 45 === 0 && this.timer > 800 && this.timer < 1100) {
+      let newEnemyWave3 = new Enemy(250, 850, "right");
+      this.enemyArr.push(newEnemyWave3);
+    }
+  };
+  enemySpawnSecondWave = () => {
+    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
+      let newEnemyWave2 = new Enemy(400, 850, "right");
+      this.enemyArr.push(newEnemyWave2);
+    }
+  };
+  enemySpawnSecondWave = () => {
+    if (this.timer % 45 === 0 && this.timer > 420 && this.timer < 720) {
+      let newEnemyWave2 = new Enemy(400, 850);
+      this.enemyArr.push(newEnemyWave2);
     }
   };
 
@@ -85,19 +112,22 @@ class Game {
 
   gameLoop = () => {
     this.enemySpawnFirstWave();
+    this.enemySpawnSecondWave();
+    this.enemySpawnThirdWave();
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });
     this.projectyleArr.forEach((eachProjectyle) => {
       eachProjectyle.movement();
     });
-
+    this.shotDisappear();
     this.enemyDisappear();
     this.collisionCheckEnemyShot();
     this.collisionCheckPlayerEnemy();
     this.timer++;
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
+      console.log(this.projectyleArr);
     }
   };
 }
