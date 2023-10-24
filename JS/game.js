@@ -65,7 +65,7 @@ class Game {
   };
   enemySpawnSecondWave = () => {
     if (this.timer % 30 === 0 && this.timer > 300 && this.timer < 480) {
-      let newEnemyWave = new Enemy(400, 850, "right");
+      let newEnemyWave = new Enemy(500, 850, "right");
       this.enemyArr.push(newEnemyWave);
     }
   };
@@ -105,6 +105,84 @@ class Game {
       this.enemyArr.push(newEnemyWave);
     }
   };
+  enemySpawnNinethWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1260 && this.timer < 1380) {
+      let newEnemyWave = new Enemy(100, 850, "right");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnTenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1290 && this.timer < 1410) {
+      let newEnemyWave = new Enemy(200, 850, "right");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnEleventhWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1320 && this.timer < 1440) {
+      let newEnemyWave = new Enemy(300, 850, "right");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnTwelvethWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1350 && this.timer < 1470) {
+      let newEnemyWave = new Enemy(400, 850, "right");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnThirteenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1590 && this.timer < 1770) {
+      let newEnemyWave = new Enemy(-50, 100, "top");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnFourteenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1590 && this.timer < 1770) {
+      let newEnemyWave = new Enemy(650, 200, "bottom");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnFifteenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1620 && this.timer < 1800) {
+      let newEnemyWave = new Enemy(-50, 300, "top");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnSixteenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1620 && this.timer < 1800) {
+      let newEnemyWave = new Enemy(650, 400, "bottom");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnSeventeenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1920 && this.timer < 2040) {
+      let newEnemyWave = new Enemy(100, -50, "left");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnEighteenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1920 && this.timer < 2040) {
+      let newEnemyWave = new Enemy(500, -50, "left");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnNineteenthWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1950 && this.timer < 2070) {
+      let newEnemyWave = new Enemy(200, 850, "right");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnTwentythWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 1950 && this.timer < 2070) {
+      let newEnemyWave = new Enemy(400, 850, "right");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
+  enemySpawnTwentyfirstWave = () => {
+    if (this.timer % 30 === 0 && this.timer > 2010 && this.timer < 2130) {
+      let newEnemyWave = new Enemy(300, -50, "left");
+      this.enemyArr.push(newEnemyWave);
+    }
+  };
 
   enemyDisappear = () => {
     if (this.enemyArr.length !== 0 && this.enemyArr[0].x < -100) {
@@ -128,9 +206,11 @@ class Game {
     for (let j = 0; j < this.projectyleArr.length; j++) {
       this.projectyleArr[j].node.remove();
     }
+
     this.enemyArr = [];
     this.projectyleArr = [];
     this.player.node.remove();
+    stopGameMusic();
     gameScreenNode.style.display = "none";
     gameOverScreenNode.style.display = "flex";
   };
@@ -144,6 +224,19 @@ class Game {
     this.enemySpawnSixthWave();
     this.enemySpawnSeventhWave();
     this.enemySpawnEighthWave();
+    this.enemySpawnNinethWave();
+    this.enemySpawnTenthWave();
+    this.enemySpawnEleventhWave();
+    this.enemySpawnTwelvethWave();
+    this.enemySpawnThirteenthWave();
+    this.enemySpawnFourteenthWave();
+    this.enemySpawnFifteenthWave();
+    this.enemySpawnSixteenthWave();
+    this.enemySpawnSeventeenthWave();
+    this.enemySpawnEighteenthWave();
+    this.enemySpawnNineteenthWave();
+    this.enemySpawnTwentythWave();
+    this.enemySpawnTwentyfirstWave();
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });
