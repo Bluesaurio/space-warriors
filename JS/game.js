@@ -11,7 +11,17 @@ class Game {
     this.boss = null;
   }
   // NOTA IMPORTANTE: METER BOSS AL SEGUNDO 40!!
-
+  collisionCheckPlayerBoss = () => {
+    if (
+      this.boss !== null &&
+      this.boss.x < this.player.x + this.player.w &&
+      this.boss.x + this.boss.w > this.player.x &&
+      this.boss.y < this.player.y + this.player.h &&
+      this.boss.y + this.boss.h > this.player.y
+    ) {
+      this.gameOver();
+    }
+  };
   collisionCheckPlayerEnemy = () => {
     this.enemyArr.forEach((eachEnemy) => {
       if (
@@ -24,7 +34,6 @@ class Game {
       }
     });
   };
-
   collisionCheckEnemyShot = () => {
     if (this.enemyArr.length !== 0 && this.projectyleArr.length !== 0) {
       for (let i = 0; i < this.enemyArr.length; i++) {
@@ -53,7 +62,30 @@ class Game {
 
     this.score + 100;
   };
+  collisionCheckShotBoss = () => {
+    if (this.boss !== null && this.projectyleArr.length !== 0) {
+      for (let i = 0; i < this.projectyleArr.length; i++) {
+        if (
+          this.projectyleArr[i].x < this.boss.x + this.boss.w - 35 &&
+          this.projectyleArr[i].x + this.projectyleArr[i].w > this.boss.x &&
+          this.projectyleArr[i].y < this.boss.y + this.boss.h &&
+          this.projectyleArr[i].y + this.projectyleArr[i].h > this.boss.y
+        ) {
+          this.projectyleArr[i].node.remove();
+          this.boss.lifes -= 1;
+          console.log(this.boss.lifes);
 
+          if (this.boss.lifes <= 0) {
+            this.boss.node.remove();
+            this.boss = null;
+            this.score += 3000;
+            this.scoreNode.innerText = `SCORE : ${this.score}`;
+            // insertar funcion pantalla victoria
+          }
+        }
+      }
+    }
+  };
   playerShooting = () => {
     if (this.projectyleArr.length < 2 && this.isGameOn === true) {
       let newProjectyle = new Projectyle(this.player.x, this.player.y);
@@ -194,21 +226,18 @@ class Game {
       this.boss = new Boss("right");
     }
   };
-
   enemyDisappear = () => {
     if (this.enemyArr.length !== 0 && this.enemyArr[0].x < -100) {
       this.enemyArr[0].node.remove();
       this.enemyArr.shift();
     }
   };
-
   shotDisappear = () => {
     if (this.projectyleArr.length !== 0 && this.projectyleArr[0].x > 1100) {
       this.projectyleArr[0].node.remove();
       this.projectyleArr.shift();
     }
   };
-
   gameOver = () => {
     this.isGameOn = false;
     for (let i = 0; i < this.enemyArr.length; i++) {
@@ -229,31 +258,31 @@ class Game {
   gameLoop = () => {
     //control+k+C => comentar seccion
     //control+k+u => descomentar seccion
-    this.enemySpawnFirstWave();
-    this.enemySpawnSecondWave();
-    this.enemySpawnThirdWave();
-    this.enemySpawnFourthWave();
-    this.enemySpawnFifthWave();
-    this.enemySpawnSixthWave();
-    this.enemySpawnSeventhWave();
-    this.enemySpawnEighthWave();
-    this.enemySpawnNinethWave();
-    this.enemySpawnTenthWave();
-    this.enemySpawnEleventhWave();
-    this.enemySpawnTwelvethWave();
-    this.enemySpawnThirteenthWave();
-    this.enemySpawnFourteenthWave();
-    this.enemySpawnFifteenthWave();
-    this.enemySpawnSixteenthWave();
-    this.enemySpawnSeventeenthWave();
-    this.enemySpawnEighteenthWave();
-    this.enemySpawnNineteenthWave();
-    this.enemySpawnTwentythWave();
-    this.enemySpawnTwentyfirstWave();
-    //this.bossSpawn();
-    // if (this.boss !== null) {
-    //   this.boss.movement();
-    // }
+    // this.enemySpawnFirstWave();
+    // this.enemySpawnSecondWave();
+    // this.enemySpawnThirdWave();
+    // this.enemySpawnFourthWave();
+    // this.enemySpawnFifthWave();
+    // this.enemySpawnSixthWave();
+    // this.enemySpawnSeventhWave();
+    // this.enemySpawnEighthWave();
+    // this.enemySpawnNinethWave();
+    // this.enemySpawnTenthWave();
+    // this.enemySpawnEleventhWave();
+    // this.enemySpawnTwelvethWave();
+    // this.enemySpawnThirteenthWave();
+    // this.enemySpawnFourteenthWave();
+    // this.enemySpawnFifteenthWave();
+    // this.enemySpawnSixteenthWave();
+    // this.enemySpawnSeventeenthWave();
+    // this.enemySpawnEighteenthWave();
+    // this.enemySpawnNineteenthWave();
+    // this.enemySpawnTwentythWave();
+    // this.enemySpawnTwentyfirstWave();
+    this.bossSpawn();
+    if (this.boss !== null) {
+      this.boss.movement();
+    }
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });
@@ -269,6 +298,8 @@ class Game {
     this.enemyDisappear();
     this.collisionCheckEnemyShot();
     this.collisionCheckPlayerEnemy();
+    this.collisionCheckShotBoss();
+    this.collisionCheckPlayerBoss();
     this.timer++;
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
