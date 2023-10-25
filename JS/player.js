@@ -34,26 +34,26 @@ class Player {
   // movimiento de la nave
 
   playerMovementUp = () => {
-    if (this.playerMovingUp === true) {
+    if (this.playerMovingUp === true && this.y > this.movementSpeed) {
       this.y -= this.movementSpeed;
       this.node.style.top = `${this.y}px`;
     }
   };
   playerMovementDown = () => {
-    if (this.playerMovingDown === true) {
+    if (this.playerMovingDown === true && this.y < 510) {
       this.y += this.movementSpeed;
       this.node.style.top = `${this.y}px`;
     }
   };
   playerMovementLeft = () => {
-    if (this.playerMovingLeft === true) {
+    if (this.playerMovingLeft === true && this.x > this.movementSpeed) {
       this.x -= this.movementSpeed;
       this.node.style.left = `${this.x}px`;
     }
   };
 
   playerMovementRight = () => {
-    if (this.playerMovingRight === true) {
+    if (this.playerMovingRight === true && this.x < 700) {
       this.x += this.movementSpeed;
       this.node.style.left = `${this.x}px`;
     }
