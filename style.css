@@ -113,6 +113,7 @@ body {
 }
 
 #controls {
+    
     border-style: double;
     border-color: pink;
     border-width: 6px;
@@ -121,10 +122,23 @@ body {
     font-style: italic;
     font-family: 'PressStart2P', sans-serif;
     position: absolute;
+    display: column;
     height: 350px;
-    width: 180px;
+    width: 190px;
     top: 310px;
     left: 20px;
     color: white;
-    padding-left: 40px; 
+    padding: 0 20px 0 20px;
+    text-align: center;
+}
+
+#arrows {
+    height: 100px;
+    width: 150px;
+   
+}
+
+#z {
+    height: 70px;
+    width: 85px;
 }
