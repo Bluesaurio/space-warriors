@@ -28,7 +28,7 @@ class Player {
 
     // velocidad de la nave
 
-    this.movementSpeed = 12;
+    this.movementSpeed = 5;
   }
 
   // movimiento de la nave

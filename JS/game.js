@@ -6,7 +6,9 @@ class Game {
     this.score = 0;
     this.enemyArr = [];
     this.projectyleArr = [];
+    this.boss = null;
   }
+  // NOTA IMPORTANTE: METER BOSS AL SEGUNDO 40!!
 
   collisionCheckPlayerEnemy = () => {
     this.enemyArr.forEach((eachEnemy) => {
@@ -183,6 +185,11 @@ class Game {
       this.enemyArr.push(newEnemyWave);
     }
   };
+  bossSpawn = () => {
+    if (this.timer === 120) {
+      this.boss = new Boss("right");
+    }
+  };
 
   enemyDisappear = () => {
     if (this.enemyArr.length !== 0 && this.enemyArr[0].x < -100) {
@@ -237,12 +244,18 @@ class Game {
     this.enemySpawnNineteenthWave();
     this.enemySpawnTwentythWave();
     this.enemySpawnTwentyfirstWave();
+    //this.bossSpawn();
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });
     this.projectyleArr.forEach((eachProjectyle) => {
       eachProjectyle.movement();
     });
+
+    this.player.playerMovementUp();
+    this.player.playerMovementDown();
+    this.player.playerMovementLeft();
+    this.player.playerMovementRight();
     this.shotDisappear();
     this.enemyDisappear();
     this.collisionCheckEnemyShot();

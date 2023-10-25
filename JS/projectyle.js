@@ -26,6 +26,8 @@ class Projectyle {
     this.speed = 30;
   }
 
+  // métodos
+
   movement = () => {
     this.x += this.speed;
     this.node.style.left = `${this.x}px`;

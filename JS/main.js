@@ -14,7 +14,7 @@ shotSoundNode.volume = 0.7;
 shotSoundNode.src = "./extra/sounds/shoot.wav";
 let enemyDeadSound = document.createElement("audio");
 enemyDeadSound.volume = 0.6;
-enemyDeadSound.src = "/extra/sounds/hurt.wav";
+enemyDeadSound.src = "/extra/sounds/pum.wav";
 let gameObject;
 let projectyleObject;
 
@@ -73,28 +73,32 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+/*
+- funciones de movimiento de player en gameloop
+- addeventlisteners de keyup y keydown cambian valor de booleano
+- quitar funcion de addeventlisteners
+*/
+
 // movimientos del player
 document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowUp") {
     gameObject.player.playerMovingUp = true;
-    gameObject.player.playerMovementUp();
-  }
-});
-document.addEventListener("keydown", (event) => {
-  if (event.code === "ArrowDown") {
+  } else if (event.code === "ArrowDown") {
     gameObject.player.playerMovingDown = true;
-    gameObject.player.playerMovementDown();
-  }
-});
-document.addEventListener("keydown", (event) => {
-  if (event.code === "ArrowLeft") {
+  } else if (event.code === "ArrowLeft") {
     gameObject.player.playerMovingLeft = true;
-    gameObject.player.playerMovementLeft();
+  } else if (event.code === "ArrowRight") {
+    gameObject.player.playerMovingRight = true;
   }
 });
-document.addEventListener("keydown", (event) => {
-  gameObject.player.playerMovingRight = true;
-  if (event.code === "ArrowRight") {
-    gameObject.player.playerMovementRight();
+document.addEventListener("keyup", (event) => {
+  if (event.code === "ArrowUp") {
+    gameObject.player.playerMovingUp = false;
+  } else if (event.code === "ArrowDown") {
+    gameObject.player.playerMovingDown = false;
+  } else if (event.code === "ArrowLeft") {
+    gameObject.player.playerMovingLeft = false;
+  } else if (event.code === "ArrowRight") {
+    gameObject.player.playerMovingRight = false;
   }
 });
