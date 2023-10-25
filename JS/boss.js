@@ -8,7 +8,7 @@ class Boss {
     this.soundtrackNode.src = "./extra/soundtracks/ridley-ost.mp3";
     this.direction = direction;
     // dimensiones y variables
-    this.lifes = 5;
+    this.lifes = 500;
     this.h = 250;
     this.w = 175;
     this.x = 650;

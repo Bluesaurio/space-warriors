@@ -101,7 +101,7 @@ body {
     background-image: url(./extra/images/victory-screen-img.png);
 }
 
-#game-screen, #game-over-screen, #victory-screen {
+#game-screen, #game-over-screen, #victory-screen  {
     display: none;
 }
 
@@ -156,4 +156,37 @@ body {
 #z {
     height: 70px;
     width: 85px;
+}
+
+#totalScore {
+
+    font-family: 'PressStart2P', sans-serif;;
+    display: column;
+    text-align: center;
+    color: white;
+    width: 400px;
+    height: 55px;
+    border-style: double;
+    border-width: 6px;
+    border-color: pink;
+    border-radius: 20px;
+    position: absolute;
+    top: 420px;
+    left: 195px;
+}
+
+#deadScore {
+    font-family: 'PressStart2P', sans-serif;;
+    display: column;
+    text-align: center;
+    color: white;
+    width: 400px;
+    height: 55px;
+    border-style: double;
+    border-width: 6px;
+    border-color: pink;
+    border-radius: 20px;
+    position: absolute;
+    top: 420px;
+    left: 195px;
 }

@@ -6,6 +6,10 @@ let gameScreenNode = document.querySelector("#game-screen");
 let gameBoxNode = document.querySelector("#game-box");
 let gameOverScreenNode = document.querySelector("#game-over-screen");
 let gameOverButtonNode = document.querySelector("#game-over-btn");
+let victoryScreenNode = document.querySelector("#victory-screen");
+let victoryButtonNode = document.querySelector("#victory-btn");
+let victorySoundtrackNode = document.createElement("audio");
+victorySoundtrackNode.src = "./extra/soundtracks/victory-ost.mp3";
 let gameBoxSoundtrackNode = document.querySelector("#vicViper");
 let gameOverSoundtrackNode = document.createElement("audio");
 gameOverSoundtrackNode.src = "./extra/soundtracks/game-over-ost.mp3";
@@ -19,7 +23,14 @@ let gameObject;
 let projectyleObject;
 
 // STATE MANAGEMENT FUNCTIONS
-
+const victoryOstPlay = () => {
+  victorySoundtrackNode.currentTime = 0;
+  victorySoundtrackNode.play();
+};
+const stopVictoryOst = () => {
+  victorySoundtrackNode.pause();
+  victorySoundtrackNode.currentTime = 0;
+};
 const enemyDyingSound = () => {
   enemyDeadSound.currentTime = 0;
   enemyDeadSound.play();
@@ -56,6 +67,13 @@ const resetGame = () => {
   gameObject.scoreNode.innerText = "SCORE : 0";
   stopGameOverMusic();
 };
+
+const playAgain = () => {
+  victoryScreenNode.style.display = "none";
+  splashScreenNode.style.display = "flex";
+  gameObject.scoreNode.innerText = "SCORE : 0";
+  stopVictoryOst();
+};
 // EVENT LISTENERS
 
 //start game
@@ -65,6 +83,7 @@ startBtnNode.addEventListener("click", startGame);
 //re-start game
 
 gameOverButtonNode.addEventListener("click", resetGame);
+victoryButtonNode.addEventListener("click", playAgain);
 
 // player shot
 

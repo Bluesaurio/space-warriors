@@ -5,6 +5,8 @@ class Game {
     this.player = new Player();
     this.score = 0;
     this.scoreNode = document.querySelector("#score");
+    this.finalScoreNode = document.querySelector("#score-h5");
+    this.deadScoreNode = document.querySelector("#deadScore-h5");
 
     this.enemyArr = [];
     this.projectyleArr = [];
@@ -19,6 +21,10 @@ class Game {
       this.boss.y < this.player.y + this.player.h &&
       this.boss.y + this.boss.h > this.player.y
     ) {
+      this.boss.soundtrackNode.pause();
+      this.boss.soundtrackNode.currentTime = 0;
+      this.boss.node.remove();
+      this.deadScoreNode.innerText = `SCORE : ${this.score}`;
       this.gameOver();
     }
   };
@@ -30,6 +36,7 @@ class Game {
         eachEnemy.y < this.player.y + this.player.h &&
         eachEnemy.y + eachEnemy.h > this.player.y
       ) {
+        this.deadScoreNode.innerText = `SCORE : ${this.score}`;
         this.gameOver();
       }
     });
@@ -76,10 +83,12 @@ class Game {
           console.log(this.boss.lifes);
 
           if (this.boss.lifes <= 0) {
+            this.gameWin();
             this.boss.node.remove();
             this.boss = null;
             this.score += 3000;
             this.scoreNode.innerText = `SCORE : ${this.score}`;
+            this.finalScoreNode.innerText = `SCORE : ${this.score}`;
             // insertar funcion pantalla victoria
           }
         }
@@ -222,8 +231,9 @@ class Game {
     }
   };
   bossSpawn = () => {
-    if (this.timer === 120) {
+    if (this.timer === 2400) {
       this.boss = new Boss("right");
+      this.boss.soundtrackNode.play();
     }
   };
   enemyDisappear = () => {
@@ -255,30 +265,50 @@ class Game {
     gameOverScreenNode.style.display = "flex";
   };
 
+  gameWin = () => {
+    this.isGameOn = false;
+    for (let i = 0; i < this.enemyArr.length; i++) {
+      this.enemyArr[i].node.remove();
+    }
+    for (let j = 0; j < this.projectyleArr.length; j++) {
+      this.projectyleArr[j].node.remove();
+    }
+
+    this.enemyArr = [];
+    this.projectyleArr = [];
+    this.player.node.remove();
+    this.boss.soundtrackNode.pause();
+    this.boss.soundtrackNode.currentTime = 0;
+    gameScreenNode.style.display = "none";
+    victoryScreenNode.style.display = "flex";
+
+    victoryOstPlay();
+  };
+
   gameLoop = () => {
     //control+k+C => comentar seccion
     //control+k+u => descomentar seccion
-    // this.enemySpawnFirstWave();
-    // this.enemySpawnSecondWave();
-    // this.enemySpawnThirdWave();
-    // this.enemySpawnFourthWave();
-    // this.enemySpawnFifthWave();
-    // this.enemySpawnSixthWave();
-    // this.enemySpawnSeventhWave();
-    // this.enemySpawnEighthWave();
-    // this.enemySpawnNinethWave();
-    // this.enemySpawnTenthWave();
-    // this.enemySpawnEleventhWave();
-    // this.enemySpawnTwelvethWave();
-    // this.enemySpawnThirteenthWave();
-    // this.enemySpawnFourteenthWave();
-    // this.enemySpawnFifteenthWave();
-    // this.enemySpawnSixteenthWave();
-    // this.enemySpawnSeventeenthWave();
-    // this.enemySpawnEighteenthWave();
-    // this.enemySpawnNineteenthWave();
-    // this.enemySpawnTwentythWave();
-    // this.enemySpawnTwentyfirstWave();
+    this.enemySpawnFirstWave();
+    this.enemySpawnSecondWave();
+    this.enemySpawnThirdWave();
+    this.enemySpawnFourthWave();
+    this.enemySpawnFifthWave();
+    this.enemySpawnSixthWave();
+    this.enemySpawnSeventhWave();
+    this.enemySpawnEighthWave();
+    this.enemySpawnNinethWave();
+    this.enemySpawnTenthWave();
+    this.enemySpawnEleventhWave();
+    this.enemySpawnTwelvethWave();
+    this.enemySpawnThirteenthWave();
+    this.enemySpawnFourteenthWave();
+    this.enemySpawnFifteenthWave();
+    this.enemySpawnSixteenthWave();
+    this.enemySpawnSeventeenthWave();
+    this.enemySpawnEighteenthWave();
+    this.enemySpawnNineteenthWave();
+    this.enemySpawnTwentythWave();
+    this.enemySpawnTwentyfirstWave();
     this.bossSpawn();
     if (this.boss !== null) {
       this.boss.movement();
