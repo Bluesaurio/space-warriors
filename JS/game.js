@@ -4,6 +4,8 @@ class Game {
     this.isGameOn = true;
     this.player = new Player();
     this.score = 0;
+    this.scoreNode = document.querySelector("#score");
+
     this.enemyArr = [];
     this.projectyleArr = [];
     this.boss = null;
@@ -42,6 +44,8 @@ class Game {
             this.projectyleArr.splice(j, 1);
             this.enemyArr.splice(i, 1);
             enemyDyingSound();
+            this.score += 100;
+            this.scoreNode.innerText = `SCORE : ${this.score}`;
           }
         }
       }
@@ -223,6 +227,8 @@ class Game {
   };
 
   gameLoop = () => {
+    //control+k+C => comentar seccion
+    //control+k+u => descomentar seccion
     this.enemySpawnFirstWave();
     this.enemySpawnSecondWave();
     this.enemySpawnThirdWave();
@@ -245,6 +251,9 @@ class Game {
     this.enemySpawnTwentythWave();
     this.enemySpawnTwentyfirstWave();
     //this.bossSpawn();
+    // if (this.boss !== null) {
+    //   this.boss.movement();
+    // }
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });

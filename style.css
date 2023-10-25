@@ -1,3 +1,8 @@
+
+@font-face{
+    font-family: "PressStart2P";
+    src: url(./extra/fonts/PressStart2P-Regular.ttf);
+}
 body {
     margin: 0;
     background-color: lightblue;
@@ -86,6 +91,11 @@ body {
 }
 
 #score {
+
+    font-size: 16px;
+    font-weight: bolder;
+    font-style: italic;
+    font-family: 'PressStart2P', sans-serif;
     position: absolute;
     color: white;
     height: 40px;
@@ -98,6 +108,23 @@ body {
     left: 10px;
     top: 620px;
     text-align:left;
-    padding-top: 20px;
+    padding-top: 21px;
     padding-left: 20px;
+}
+
+#controls {
+    border-style: double;
+    border-color: pink;
+    border-width: 6px;
+    border-radius: 20px;
+    font-weight: bolder;
+    font-style: italic;
+    font-family: 'PressStart2P', sans-serif;
+    position: absolute;
+    height: 350px;
+    width: 180px;
+    top: 310px;
+    left: 20px;
+    color: white;
+    padding-left: 40px; 
 }

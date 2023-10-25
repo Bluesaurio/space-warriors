@@ -14,7 +14,7 @@ shotSoundNode.volume = 0.7;
 shotSoundNode.src = "./extra/sounds/shoot.wav";
 let enemyDeadSound = document.createElement("audio");
 enemyDeadSound.volume = 0.6;
-enemyDeadSound.src = "/extra/sounds/pum.wav";
+enemyDeadSound.src = "./extra/sounds/pum.wav";
 let gameObject;
 let projectyleObject;
 
