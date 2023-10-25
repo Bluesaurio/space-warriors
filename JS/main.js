@@ -53,6 +53,7 @@ const startGame = () => {
 const resetGame = () => {
   gameOverScreenNode.style.display = "none";
   splashScreenNode.style.display = "flex";
+  gameObject.scoreNode.innerText = "SCORE : 0";
   stopGameOverMusic();
 };
 // EVENT LISTENERS

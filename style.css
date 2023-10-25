@@ -16,7 +16,7 @@ body {
     padding: 15px 50px 15px 50px;
     margin-top: 40px;
     border-radius: 10px;
-    top: 270px;
+    top: 310px;
 }
 
 #pause-stance {
@@ -28,6 +28,15 @@ body {
 }
 
 #game-over-btn {
+    background-color: blueviolet;
+    color: white;
+    position: absolute;
+    padding: 15px 50px 15px 50px;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+
+#victory-btn {
     background-color: blueviolet;
     color: white;
     position: absolute;
@@ -86,7 +95,13 @@ body {
     background-image: url(./extra/images/game-over-bg-img.png);
 }
 
-#game-screen, #game-over-screen {
+#victory-box {
+
+    background-size: cover;
+    background-image: url(./extra/images/victory-screen-img.png);
+}
+
+#game-screen, #game-over-screen, #victory-screen {
     display: none;
 }
 
@@ -128,7 +143,7 @@ body {
     top: 310px;
     left: 20px;
     color: white;
-    padding: 0 20px 0 20px;
+    padding: 0 15px 0 15px;
     text-align: center;
 }
 
