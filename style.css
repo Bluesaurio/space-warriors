@@ -45,7 +45,7 @@ body {
     background-position: center;
     background-color: black;
     width: 800px;
-    height: 600px;
+    height: 700px;
     overflow: hidden;
     position: relative;
     user-select: none;
@@ -83,4 +83,21 @@ body {
 
 #game-screen, #game-over-screen {
     display: none;
+}
+
+#score {
+    position: absolute;
+    color: white;
+    height: 40px;
+    width: 750px;
+    border-style:double;
+    border-radius: 20px;
+    border-width: 5px;
+    border-color: pink;
+    background-color: black;
+    left: 10px;
+    top: 620px;
+    text-align:left;
+    padding-top: 20px;
+    padding-left: 20px;
 }

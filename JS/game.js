@@ -95,7 +95,7 @@ class Game {
   };
   enemySpawnSeventhWave = () => {
     if (this.timer % 30 === 0 && this.timer > 900 && this.timer < 1080) {
-      let newEnemyWave = new Enemy(650, 350, "bottom");
+      let newEnemyWave = new Enemy(750, 350, "bottom");
       this.enemyArr.push(newEnemyWave);
     }
   };
@@ -137,7 +137,7 @@ class Game {
   };
   enemySpawnFourteenthWave = () => {
     if (this.timer % 30 === 0 && this.timer > 1590 && this.timer < 1770) {
-      let newEnemyWave = new Enemy(650, 200, "bottom");
+      let newEnemyWave = new Enemy(750, 200, "bottom");
       this.enemyArr.push(newEnemyWave);
     }
   };
@@ -149,7 +149,7 @@ class Game {
   };
   enemySpawnSixteenthWave = () => {
     if (this.timer % 30 === 0 && this.timer > 1620 && this.timer < 1800) {
-      let newEnemyWave = new Enemy(650, 400, "bottom");
+      let newEnemyWave = new Enemy(750, 400, "bottom");
       this.enemyArr.push(newEnemyWave);
     }
   };
