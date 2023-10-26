@@ -14,12 +14,46 @@ class Game {
     this.bossWaveArr = [];
     this.boss = null;
   }
+
+  // FALLOS EN DEPLOY:
+  // - bossAttack no parpadea
+  // - bossWave no parpadea
+  // - boss no cambia imagen cuando pierde vidas
+  // - no se actualiza el cambio de velocidad ni de tempo en las bossWave (fase 3)
+
   blinkWaveAnimation = () => {
     if (this.bossWaveArr.length !== 0) {
       if (this.timer % 3 === 0) {
         this.bossWaveArr[0].node.style.display = "none";
       } else {
         this.bossWaveArr[0].node.style.display = "block";
+      }
+    }
+  };
+  blinkAttackAnimation = () => {
+    if (this.bossAttackArr.length !== 0) {
+      if (this.timer % 3 === 0) {
+        if (this.bossAttackArr.length === 3) {
+          this.bossAttackArr[2].node.style.display = "none";
+          this.bossAttackArr[1].node.style.display = "none";
+          this.bossAttackArr[0].node.style.display = "none";
+        } else if (this.bossAttackArr.length === 2) {
+          this.bossAttackArr[1].node.style.display = "none";
+          this.bossAttackArr[0].node.style.display = "none";
+        } else if (this.bossAttackArr.length === 1) {
+          this.bossAttackArr[0].node.style.display = "none";
+        }
+      } else {
+        if (this.bossAttackArr.length === 3) {
+          this.bossAttackArr[2].node.style.display = "block";
+          this.bossAttackArr[1].node.style.display = "block";
+          this.bossAttackArr[0].node.style.display = "block";
+        } else if (this.bossAttackArr.length === 2) {
+          this.bossAttackArr[1].node.style.display = "block";
+          this.bossAttackArr[0].node.style.display = "block";
+        } else if (this.bossAttackArr.length === 1) {
+          this.bossAttackArr[0].node.style.display = "block";
+        }
       }
     }
   };
@@ -165,33 +199,7 @@ class Game {
       playBossAttackSound();
     }
   };
-  blinkAttackAnimation = () => {
-    if (this.bossAttackArr.length !== 0) {
-      if (this.timer % 3 === 0) {
-        if (this.bossAttackArr.length === 3) {
-          this.bossAttackArr[2].node.style.display = "none";
-          this.bossAttackArr[1].node.style.display = "none";
-          this.bossAttackArr[0].node.style.display = "none";
-        } else if (this.bossAttackArr.length === 2) {
-          this.bossAttackArr[1].node.style.display = "none";
-          this.bossAttackArr[0].node.style.display = "none";
-        } else if (this.bossAttackArr.length === 1) {
-          this.bossAttackArr[0].node.style.display = "none";
-        }
-      } else {
-        if (this.bossAttackArr.length === 3) {
-          this.bossAttackArr[2].node.style.display = "block";
-          this.bossAttackArr[1].node.style.display = "block";
-          this.bossAttackArr[0].node.style.display = "block";
-        } else if (this.bossAttackArr.length === 2) {
-          this.bossAttackArr[1].node.style.display = "block";
-          this.bossAttackArr[0].node.style.display = "block";
-        } else if (this.bossAttackArr.length === 1) {
-          this.bossAttackArr[0].node.style.display = "block";
-        }
-      }
-    }
-  };
+
   bossWave = () => {
     if (this.boss.lifes > 300) {
       if (
@@ -217,7 +225,7 @@ class Game {
         this.bossWaveArr[0].speed = 9;
         playBossWaveSound();
       }
-    } else {
+    } else if (this.boss.lifes >= 150) {
       if (
         this.boss !== null &&
         this.timer % 90 === 0 &&
@@ -249,7 +257,6 @@ class Game {
       this.boss.stage = 3;
     }
   };
-
   enemySpawnFirstWave = () => {
     if (this.timer % 30 === 0 && this.timer > 60 && this.timer < 240) {
       let newEnemyWave = new Enemy(100, 850, "right");
@@ -406,6 +413,7 @@ class Game {
       this.bossWaveArr.shift();
     }
   };
+
   gameOver = () => {
     this.isGameOn = false;
     for (let i = 0; i < this.enemyArr.length; i++) {

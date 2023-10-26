@@ -3,7 +3,6 @@ class Boss {
     // nodos
     this.node = document.createElement("img");
     this.node.src = "./extra/images/phantoon-img.png";
-
     this.stage = 1;
     gameBoxNode.append(this.node);
     this.soundtrackNode = document.createElement("audio");
