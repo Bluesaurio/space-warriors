@@ -12,7 +12,7 @@ class Boss {
     this.lifes = 500;
     this.h = 250;
     this.w = 175;
-    this.x = 650;
+    this.x = 800;
     this.y = 200;
     // valores de DOM
     this.node.style.width = `${this.w}px`;
