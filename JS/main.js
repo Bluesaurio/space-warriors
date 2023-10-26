@@ -10,15 +10,24 @@ let victoryScreenNode = document.querySelector("#victory-screen");
 let victoryButtonNode = document.querySelector("#victory-btn");
 let victorySoundtrackNode = document.createElement("audio");
 victorySoundtrackNode.src = "./extra/soundtracks/victory-ost.mp3";
+victorySoundtrackNode.volume = 0.5;
 let gameBoxSoundtrackNode = document.querySelector("#vicViper");
 let gameOverSoundtrackNode = document.createElement("audio");
+gameBoxSoundtrackNode.volume = 0.5;
 gameOverSoundtrackNode.src = "./extra/soundtracks/game-over-ost.mp3";
+gameOverSoundtrackNode.volume = 0.5;
 let shotSoundNode = document.createElement("audio");
-shotSoundNode.volume = 0.7;
+shotSoundNode.volume = 0.3;
 shotSoundNode.src = "./extra/sounds/shoot.wav";
 let enemyDeadSound = document.createElement("audio");
-enemyDeadSound.volume = 0.6;
+enemyDeadSound.volume = 0.2;
 enemyDeadSound.src = "./extra/sounds/pum.wav";
+bossAttackSoundNode = document.createElement("audio");
+bossAttackSoundNode.src = "./extra/sounds/hit.ogg";
+bossAttackSoundNode.volume = 0.1;
+bossWaveAttackNode = document.createElement("audio");
+bossWaveAttackNode.src = "./extra/sounds/wave-laser.wav";
+bossWaveAttackNode.volume = 0.2;
 let gameObject;
 let projectyleObject;
 
@@ -40,7 +49,14 @@ const playShotSound = () => {
   shotSoundNode.currentTime = 0;
   shotSoundNode.play();
 };
-
+const playBossAttackSound = () => {
+  bossAttackSoundNode.currentTime = 0;
+  bossAttackSoundNode.play();
+};
+const playBossWaveSound = () => {
+  bossWaveAttackNode.currentTime = 0;
+  bossWaveAttackNode.play();
+};
 const stopGameMusic = () => {
   gameBoxSoundtrackNode.pause();
   gameBoxSoundtrackNode.currentTime = 0;

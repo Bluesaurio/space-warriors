@@ -10,9 +10,11 @@ class Game {
 
     this.enemyArr = [];
     this.projectyleArr = [];
+    this.bossAttackArr = [];
+    this.bossWaveArr = [];
     this.boss = null;
   }
-  // NOTA IMPORTANTE: METER BOSS AL SEGUNDO 40!!
+
   collisionCheckPlayerBoss = () => {
     if (
       this.boss !== null &&
@@ -73,14 +75,14 @@ class Game {
     if (this.boss !== null && this.projectyleArr.length !== 0) {
       for (let i = 0; i < this.projectyleArr.length; i++) {
         if (
-          this.projectyleArr[i].x < this.boss.x + this.boss.w - 35 &&
+          this.projectyleArr[i].x < this.boss.x + this.boss.w &&
           this.projectyleArr[i].x + this.projectyleArr[i].w > this.boss.x &&
           this.projectyleArr[i].y < this.boss.y + this.boss.h &&
           this.projectyleArr[i].y + this.projectyleArr[i].h > this.boss.y
         ) {
           this.projectyleArr[i].node.remove();
           this.boss.lifes -= 1;
-          console.log(this.boss.lifes);
+          //console.log(this.boss.lifes);
 
           if (this.boss.lifes <= 0) {
             this.gameWin();
@@ -89,9 +91,42 @@ class Game {
             this.score += 3000;
             this.scoreNode.innerText = `SCORE : ${this.score}`;
             this.finalScoreNode.innerText = `SCORE : ${this.score}`;
-            // insertar funcion pantalla victoria
           }
         }
+      }
+    }
+  };
+  collisionCheckPlayerBossAttack = () => {
+    for (let i = 0; i < this.bossAttackArr.length; i++) {
+      if (
+        this.bossAttackArr[i].x < this.player.x + this.player.w - 35 &&
+        this.bossAttackArr[i].x + this.bossAttackArr[i].w > this.player.x &&
+        this.bossAttackArr[i].y < this.player.y + this.player.h + 10 &&
+        this.bossAttackArr[i].y + this.bossAttackArr[i].h > this.player.y
+      ) {
+        this.deadScoreNode.innerText = `SCORE : ${this.score}`;
+        this.boss.soundtrackNode.pause();
+        this.boss.soundtrackNode.currentTime = 0;
+        this.boss.node.remove();
+        this.boss = null;
+        this.gameOver();
+      }
+    }
+  };
+  collisionCheckPlayerBossWave = () => {
+    for (let i = 0; i < this.bossWaveArr.length; i++) {
+      if (
+        this.bossWaveArr[i].x < this.player.x + this.player.w - 40 &&
+        this.bossWaveArr[i].x + this.bossWaveArr[i].w > this.player.x &&
+        this.bossWaveArr[i].y < this.player.y + this.player.h &&
+        this.bossWaveArr[i].y + this.bossWaveArr[i].h > this.player.y
+      ) {
+        this.deadScoreNode.innerText = `SCORE : ${this.score}`;
+        this.boss.soundtrackNode.pause();
+        this.boss.soundtrackNode.currentTime = 0;
+        this.boss.node.remove();
+        this.boss = null;
+        this.gameOver();
       }
     }
   };
@@ -103,6 +138,50 @@ class Game {
     }
 
     //console.log("disparo", this.player.y);
+  };
+  bossAttack = () => {
+    if (
+      this.boss !== null &&
+      this.timer % 30 === 0 &&
+      this.bossAttackArr < 9 &&
+      this.boss.direction !== "right"
+    ) {
+      let newBossAttack1 = new BossAttack(this.boss.x, this.boss.y - 30);
+      this.bossAttackArr.push(newBossAttack1);
+      let newBossAttack2 = new BossAttack(this.boss.x, this.boss.y + 140);
+      this.bossAttackArr.push(newBossAttack2);
+      let newBossAttack3 = new BossAttack(this.boss.x, this.boss.y + 310);
+      this.bossAttackArr.push(newBossAttack3);
+
+      playBossAttackSound();
+    }
+  };
+  bossWave = () => {
+    if (this.boss.lifes > 250) {
+      if (
+        this.boss !== null &&
+        this.timer % 240 === 0 &&
+        this.bossWaveArr < 1 &&
+        this.boss.direction !== "right"
+      ) {
+        let newBossWave = new BossWave(this.boss.x, this.boss.y + 130);
+        this.bossWaveArr.push(newBossWave);
+
+        playBossWaveSound();
+      }
+    } else {
+      if (
+        this.boss !== null &&
+        this.timer % 120 === 0 &&
+        this.bossWaveArr < 1 &&
+        this.boss.direction !== "right"
+      ) {
+        let newBossWave = new BossWave(this.boss.x, this.boss.y + 130);
+        this.bossWaveArr.push(newBossWave);
+
+        playBossWaveSound();
+      }
+    }
   };
   enemySpawnFirstWave = () => {
     if (this.timer % 30 === 0 && this.timer > 60 && this.timer < 240) {
@@ -248,6 +327,18 @@ class Game {
       this.projectyleArr.shift();
     }
   };
+  bossAttackDisappear = () => {
+    if (this.bossAttackArr.length !== 0 && this.bossAttackArr[0].x < -30) {
+      this.bossAttackArr[0].node.remove();
+      this.bossAttackArr.shift();
+    }
+  };
+  bossWaveDisappear = () => {
+    if (this.bossWaveArr.length !== 0 && this.bossWaveArr[0].x < -150) {
+      this.bossWaveArr[0].node.remove();
+      this.bossWaveArr.shift();
+    }
+  };
   gameOver = () => {
     this.isGameOn = false;
     for (let i = 0; i < this.enemyArr.length; i++) {
@@ -255,6 +346,12 @@ class Game {
     }
     for (let j = 0; j < this.projectyleArr.length; j++) {
       this.projectyleArr[j].node.remove();
+    }
+    for (let k = 0; k < this.bossAttackArr.length; k++) {
+      this.bossAttackArr[k].node.remove();
+    }
+    for (let l = 0; l < this.bossWaveArr.length; l++) {
+      this.bossWaveArr[l].node.remove();
     }
 
     this.enemyArr = [];
@@ -273,7 +370,12 @@ class Game {
     for (let j = 0; j < this.projectyleArr.length; j++) {
       this.projectyleArr[j].node.remove();
     }
-
+    for (let k = 0; k < this.bossAttackArr.length; k++) {
+      this.bossAttackArr[k].node.remove();
+    }
+    for (let l = 0; l < this.bossWaveArr.length; l++) {
+      this.bossWaveArr[l].node.remove();
+    }
     this.enemyArr = [];
     this.projectyleArr = [];
     this.player.node.remove();
@@ -312,10 +414,25 @@ class Game {
     this.bossSpawn();
     if (this.boss !== null) {
       this.boss.movement();
+      this.bossAttack();
+      this.bossWave();
+      if (this.bossAttackArr.length !== 0) {
+        this.bossAttackArr.forEach((eachBossAttack) => {
+          eachBossAttack.movement();
+        });
+      }
+      if (this.bossWaveArr.length !== 0) {
+        this.bossWaveArr.forEach((eachWave) => {
+          eachWave.movement();
+        });
+      }
+      this.collisionCheckPlayerBossAttack();
+      this.collisionCheckPlayerBossWave();
     }
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.autoMovement();
     });
+
     this.projectyleArr.forEach((eachProjectyle) => {
       eachProjectyle.movement();
     });
@@ -324,8 +441,11 @@ class Game {
     this.player.playerMovementDown();
     this.player.playerMovementLeft();
     this.player.playerMovementRight();
+
     this.shotDisappear();
     this.enemyDisappear();
+    this.bossAttackDisappear();
+    this.bossWaveDisappear();
     this.collisionCheckEnemyShot();
     this.collisionCheckPlayerEnemy();
     this.collisionCheckShotBoss();

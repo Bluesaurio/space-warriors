@@ -6,8 +6,9 @@ class Boss {
     gameBoxNode.append(this.node);
     this.soundtrackNode = document.createElement("audio");
     this.soundtrackNode.src = "./extra/soundtracks/ridley-ost.mp3";
-    this.direction = direction;
+    this.soundtrackNode.volume = 0.5;
     // dimensiones y variables
+    this.direction = direction;
     this.lifes = 500;
     this.h = 250;
     this.w = 175;
