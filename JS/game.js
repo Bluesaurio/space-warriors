@@ -225,7 +225,7 @@ class Game {
         this.bossWaveArr[0].speed = 9;
         playBossWaveSound();
       }
-    } else if (this.boss.lifes >= 150) {
+    } else if (this.boss.lifes <= 150) {
       if (
         this.boss !== null &&
         this.timer % 90 === 0 &&
