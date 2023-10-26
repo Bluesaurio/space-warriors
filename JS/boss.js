@@ -3,13 +3,15 @@ class Boss {
     // nodos
     this.node = document.createElement("img");
     this.node.src = "./extra/images/phantoon-img.png";
+
+    this.stage = 1;
     gameBoxNode.append(this.node);
     this.soundtrackNode = document.createElement("audio");
     this.soundtrackNode.src = "./extra/soundtracks/ridley-ost.mp3";
     this.soundtrackNode.volume = 0.5;
     // dimensiones y variables
     this.direction = direction;
-    this.lifes = 500;
+    this.lifes = 600;
     this.h = 250;
     this.w = 175;
     this.x = 800;

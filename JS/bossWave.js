@@ -3,7 +3,7 @@ class BossWave {
     // nodos
     this.node = document.createElement("img");
     this.node.src = "./extra/images/wave-attack.png";
-    this.node.style.opacity = "80%";
+    this.node.style.opacity = "85%";
     gameBoxNode.append(this.node);
 
     // dimensiones

@@ -14,7 +14,15 @@ class Game {
     this.bossWaveArr = [];
     this.boss = null;
   }
-
+  blinkWaveAnimation = () => {
+    if (this.bossWaveArr.length !== 0) {
+      if (this.timer % 3 === 0) {
+        this.bossWaveArr[0].node.style.display = "none";
+      } else {
+        this.bossWaveArr[0].node.style.display = "block";
+      }
+    }
+  };
   collisionCheckPlayerBoss = () => {
     if (
       this.boss !== null &&
@@ -82,6 +90,7 @@ class Game {
         ) {
           this.projectyleArr[i].node.remove();
           this.boss.lifes -= 1;
+          this.bossLifesCheck();
           //console.log(this.boss.lifes);
 
           if (this.boss.lifes <= 0) {
@@ -143,7 +152,7 @@ class Game {
     if (
       this.boss !== null &&
       this.timer % 30 === 0 &&
-      this.bossAttackArr < 9 &&
+      this.bossAttackArr < 3 &&
       this.boss.direction !== "right"
     ) {
       let newBossAttack1 = new BossAttack(this.boss.x, this.boss.y - 30);
@@ -156,8 +165,35 @@ class Game {
       playBossAttackSound();
     }
   };
+  blinkAttackAnimation = () => {
+    if (this.bossAttackArr.length !== 0) {
+      if (this.timer % 3 === 0) {
+        if (this.bossAttackArr.length === 3) {
+          this.bossAttackArr[2].node.style.display = "none";
+          this.bossAttackArr[1].node.style.display = "none";
+          this.bossAttackArr[0].node.style.display = "none";
+        } else if (this.bossAttackArr.length === 2) {
+          this.bossAttackArr[1].node.style.display = "none";
+          this.bossAttackArr[0].node.style.display = "none";
+        } else if (this.bossAttackArr.length === 1) {
+          this.bossAttackArr[0].node.style.display = "none";
+        }
+      } else {
+        if (this.bossAttackArr.length === 3) {
+          this.bossAttackArr[2].node.style.display = "block";
+          this.bossAttackArr[1].node.style.display = "block";
+          this.bossAttackArr[0].node.style.display = "block";
+        } else if (this.bossAttackArr.length === 2) {
+          this.bossAttackArr[1].node.style.display = "block";
+          this.bossAttackArr[0].node.style.display = "block";
+        } else if (this.bossAttackArr.length === 1) {
+          this.bossAttackArr[0].node.style.display = "block";
+        }
+      }
+    }
+  };
   bossWave = () => {
-    if (this.boss.lifes > 250) {
+    if (this.boss.lifes > 300) {
       if (
         this.boss !== null &&
         this.timer % 240 === 0 &&
@@ -169,7 +205,7 @@ class Game {
 
         playBossWaveSound();
       }
-    } else {
+    } else if (this.boss.lifes <= 300 && this.boss.lifes > 150) {
       if (
         this.boss !== null &&
         this.timer % 120 === 0 &&
@@ -178,11 +214,42 @@ class Game {
       ) {
         let newBossWave = new BossWave(this.boss.x, this.boss.y + 130);
         this.bossWaveArr.push(newBossWave);
-
+        this.bossWaveArr[0].speed = 9;
+        playBossWaveSound();
+      }
+    } else {
+      if (
+        this.boss !== null &&
+        this.timer % 90 === 0 &&
+        this.bossWaveArr < 1 &&
+        this.boss.direction !== "right"
+      ) {
+        let newBossWave = new BossWave(this.boss.x, this.boss.y + 130);
+        this.bossWaveArr.push(newBossWave);
+        this.bossWaveArr[0].speed = 11;
         playBossWaveSound();
       }
     }
   };
+  bossLifesCheck = () => {
+    if (
+      this.boss !== null &&
+      this.boss.lifes <= 300 &&
+      this.boss.lifes > 100 &&
+      this.boss.stage === 1
+    ) {
+      this.boss.stage = 2;
+      this.boss.node.src = "./extra/images/boss-50.png";
+    } else if (
+      this.boss !== null &&
+      this.boss.lifes < 150 &&
+      this.boss.stage === 2
+    ) {
+      this.boss.node.src = "./extra/images/boss-10.png";
+      this.boss.stage = 3;
+    }
+  };
+
   enemySpawnFirstWave = () => {
     if (this.timer % 30 === 0 && this.timer > 60 && this.timer < 240) {
       let newEnemyWave = new Enemy(100, 850, "right");
@@ -334,7 +401,7 @@ class Game {
     }
   };
   bossWaveDisappear = () => {
-    if (this.bossWaveArr.length !== 0 && this.bossWaveArr[0].x < -150) {
+    if (this.bossWaveArr.length !== 0 && this.bossWaveArr[0].x < -250) {
       this.bossWaveArr[0].node.remove();
       this.bossWaveArr.shift();
     }
@@ -416,6 +483,8 @@ class Game {
       this.boss.movement();
       this.bossAttack();
       this.bossWave();
+      this.blinkWaveAnimation();
+      this.blinkAttackAnimation();
       if (this.bossAttackArr.length !== 0) {
         this.bossAttackArr.forEach((eachBossAttack) => {
           eachBossAttack.movement();
@@ -450,6 +519,7 @@ class Game {
     this.collisionCheckPlayerEnemy();
     this.collisionCheckShotBoss();
     this.collisionCheckPlayerBoss();
+
     this.timer++;
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
