@@ -193,7 +193,7 @@ class Game {
       ) {
         let newBossWave = new BossWave(this.boss.x, this.boss.y + 130);
         this.bossWaveArr.push(newBossWave);
-        this.bossWaveArr[0].speed = 11;
+        this.bossWaveArr[0].speed = 10;
         playBossWaveSound();
       }
     }
