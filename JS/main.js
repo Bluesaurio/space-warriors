@@ -32,6 +32,28 @@ let gameObject;
 let projectyleObject;
 
 // STATE MANAGEMENT FUNCTIONS
+
+const startGame = () => {
+  splashScreenNode.style.display = "none";
+  gameScreenNode.style.display = "flex";
+  gameObject = new Game();
+  gameBoxSoundtrackNode.play();
+  gameObject.gameLoop();
+  gameObject.score = 0;
+};
+const resetGame = () => {
+  gameOverScreenNode.style.display = "none";
+  splashScreenNode.style.display = "flex";
+  gameObject.scoreNode.innerText = "SCORE : 0";
+  stopGameOverMusic();
+};
+const playAgain = () => {
+  victoryScreenNode.style.display = "none";
+  splashScreenNode.style.display = "flex";
+  gameObject.scoreNode.innerText = "SCORE : 0";
+  stopVictoryOst();
+};
+
 const victoryOstPlay = () => {
   victorySoundtrackNode.currentTime = 0;
   victorySoundtrackNode.play();
@@ -68,28 +90,6 @@ const stopGameOverMusic = () => {
   gameOverSoundtrackNode.currentTime = 0;
 };
 
-const startGame = () => {
-  splashScreenNode.style.display = "none";
-  gameScreenNode.style.display = "flex";
-  gameObject = new Game();
-  gameBoxSoundtrackNode.play();
-  gameObject.gameLoop();
-  gameObject.score = 0;
-};
-
-const resetGame = () => {
-  gameOverScreenNode.style.display = "none";
-  splashScreenNode.style.display = "flex";
-  gameObject.scoreNode.innerText = "SCORE : 0";
-  stopGameOverMusic();
-};
-
-const playAgain = () => {
-  victoryScreenNode.style.display = "none";
-  splashScreenNode.style.display = "flex";
-  gameObject.scoreNode.innerText = "SCORE : 0";
-  stopVictoryOst();
-};
 // EVENT LISTENERS
 
 //start game
@@ -108,12 +108,6 @@ document.addEventListener("keydown", (event) => {
     gameObject.playerShooting();
   }
 });
-
-/*
-- funciones de movimiento de player en gameloop
-- addeventlisteners de keyup y keydown cambian valor de booleano
-- quitar funcion de addeventlisteners
-*/
 
 // movimientos del player
 document.addEventListener("keydown", (event) => {

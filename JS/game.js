@@ -15,48 +15,7 @@ class Game {
     this.boss = null;
   }
 
-  // FALLOS EN DEPLOY:
-  // - bossAttack no parpadea
-  // - bossWave no parpadea
-  // - boss no cambia imagen cuando pierde vidas
-  // - no se actualiza el cambio de velocidad ni de tempo en las bossWave (fase 3)
-
-  blinkWaveAnimation = () => {
-    if (this.bossWaveArr.length !== 0) {
-      if (this.timer % 3 === 0) {
-        this.bossWaveArr[0].node.style.display = "none";
-      } else {
-        this.bossWaveArr[0].node.style.display = "block";
-      }
-    }
-  };
-  blinkAttackAnimation = () => {
-    if (this.bossAttackArr.length !== 0) {
-      if (this.timer % 3 === 0) {
-        if (this.bossAttackArr.length === 3) {
-          this.bossAttackArr[2].node.style.display = "none";
-          this.bossAttackArr[1].node.style.display = "none";
-          this.bossAttackArr[0].node.style.display = "none";
-        } else if (this.bossAttackArr.length === 2) {
-          this.bossAttackArr[1].node.style.display = "none";
-          this.bossAttackArr[0].node.style.display = "none";
-        } else if (this.bossAttackArr.length === 1) {
-          this.bossAttackArr[0].node.style.display = "none";
-        }
-      } else {
-        if (this.bossAttackArr.length === 3) {
-          this.bossAttackArr[2].node.style.display = "block";
-          this.bossAttackArr[1].node.style.display = "block";
-          this.bossAttackArr[0].node.style.display = "block";
-        } else if (this.bossAttackArr.length === 2) {
-          this.bossAttackArr[1].node.style.display = "block";
-          this.bossAttackArr[0].node.style.display = "block";
-        } else if (this.bossAttackArr.length === 1) {
-          this.bossAttackArr[0].node.style.display = "block";
-        }
-      }
-    }
-  };
+  // Collisions
   collisionCheckPlayerBoss = () => {
     if (
       this.boss !== null &&
@@ -173,14 +132,15 @@ class Game {
       }
     }
   };
+  // Collisions
+
+  // Projectyles
   playerShooting = () => {
     if (this.projectyleArr.length < 2 && this.isGameOn === true) {
       let newProjectyle = new Projectyle(this.player.x, this.player.y);
       this.projectyleArr.push(newProjectyle);
       playShotSound();
     }
-
-    //console.log("disparo", this.player.y);
   };
   bossAttack = () => {
     if (
@@ -199,7 +159,6 @@ class Game {
       playBossAttackSound();
     }
   };
-
   bossWave = () => {
     if (this.boss.lifes > 300) {
       if (
@@ -239,6 +198,45 @@ class Game {
       }
     }
   };
+  blinkWaveAnimation = () => {
+    if (this.bossWaveArr.length !== 0) {
+      if (this.timer % 3 === 0) {
+        this.bossWaveArr[0].node.style.display = "none";
+      } else {
+        this.bossWaveArr[0].node.style.display = "block";
+      }
+    }
+  };
+  blinkAttackAnimation = () => {
+    // When they disappear, they don't do at the same time, needed to do the display for each case so the game don't crash.
+    if (this.bossAttackArr.length !== 0) {
+      if (this.timer % 3 === 0) {
+        if (this.bossAttackArr.length === 3) {
+          this.bossAttackArr[2].node.style.display = "none";
+          this.bossAttackArr[1].node.style.display = "none";
+          this.bossAttackArr[0].node.style.display = "none";
+        } else if (this.bossAttackArr.length === 2) {
+          this.bossAttackArr[1].node.style.display = "none";
+          this.bossAttackArr[0].node.style.display = "none";
+        } else if (this.bossAttackArr.length === 1) {
+          this.bossAttackArr[0].node.style.display = "none";
+        }
+      } else {
+        if (this.bossAttackArr.length === 3) {
+          this.bossAttackArr[2].node.style.display = "block";
+          this.bossAttackArr[1].node.style.display = "block";
+          this.bossAttackArr[0].node.style.display = "block";
+        } else if (this.bossAttackArr.length === 2) {
+          this.bossAttackArr[1].node.style.display = "block";
+          this.bossAttackArr[0].node.style.display = "block";
+        } else if (this.bossAttackArr.length === 1) {
+          this.bossAttackArr[0].node.style.display = "block";
+        }
+      }
+    }
+  };
+  // Projectyles
+
   bossLifesCheck = () => {
     if (
       this.boss !== null &&
@@ -257,6 +255,8 @@ class Game {
       this.boss.stage = 3;
     }
   };
+
+  // Enemy Waves
   enemySpawnFirstWave = () => {
     if (this.timer % 30 === 0 && this.timer > 60 && this.timer < 240) {
       let newEnemyWave = new Enemy(100, 850, "right");
@@ -383,12 +383,16 @@ class Game {
       this.enemyArr.push(newEnemyWave);
     }
   };
+  // Enemy Waves
+
   bossSpawn = () => {
     if (this.timer === 2400) {
       this.boss = new Boss("right");
       this.boss.soundtrackNode.play();
     }
   };
+
+  // Disappearing functions
   enemyDisappear = () => {
     if (this.enemyArr.length !== 0 && this.enemyArr[0].x < -100) {
       this.enemyArr[0].node.remove();
@@ -413,7 +417,9 @@ class Game {
       this.bossWaveArr.shift();
     }
   };
+  // Disappearing functions
 
+  // Game functions
   gameOver = () => {
     this.isGameOn = false;
     for (let i = 0; i < this.enemyArr.length; i++) {
@@ -436,7 +442,6 @@ class Game {
     gameScreenNode.style.display = "none";
     gameOverScreenNode.style.display = "flex";
   };
-
   gameWin = () => {
     this.isGameOn = false;
     for (let i = 0; i < this.enemyArr.length; i++) {
@@ -461,10 +466,7 @@ class Game {
 
     victoryOstPlay();
   };
-
   gameLoop = () => {
-    //control+k+C => comentar seccion
-    //control+k+u => descomentar seccion
     this.enemySpawnFirstWave();
     this.enemySpawnSecondWave();
     this.enemySpawnThirdWave();
@@ -531,7 +533,7 @@ class Game {
     this.timer++;
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
-      //console.log(score);
     }
   };
+  // Game functions
 }
